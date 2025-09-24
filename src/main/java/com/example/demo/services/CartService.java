@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,5 +61,12 @@ return true;
         return true;}
 
         return false;
+    }
+
+    public List<CartItems> getCart(String userId) {
+        return userRepo.findById(Long.valueOf(userId))
+                .map(cartItemRepo::findByUser)
+                .orElseGet(List::of);
+
     }
 }

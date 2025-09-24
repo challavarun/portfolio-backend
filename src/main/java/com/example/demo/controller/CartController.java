@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.CartItemReq;
+import com.example.demo.model.CartItems;
 import com.example.demo.services.CartService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @NoArgsConstructor
@@ -33,6 +36,12 @@ public class CartController {
        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
 
 
+    }
+
+    @GetMapping("/cart/{id}")
+    public ResponseEntity<List<CartItems>> getcrt(
+            @RequestHeader("X-user_id") String userId){
+        return ResponseEntity.ok(cartService.getCart(userId));
     }
 
 }
