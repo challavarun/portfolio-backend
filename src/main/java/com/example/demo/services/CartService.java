@@ -8,6 +8,7 @@ import com.example.demo.repo.CartItemRepo;
 import com.example.demo.repo.ProductRepo;
 import com.example.demo.repo.userRepo;
 import jakarta.transaction.Transactional;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +68,11 @@ return true;
         return userRepo.findById(Long.valueOf(userId))
                 .map(cartItemRepo::findByUser)
                 .orElseGet(List::of);
+
+    }
+
+    public void clearCart(UserModel userId) {
+        cartItemRepo.deleteByUser(userId);
 
     }
 }
